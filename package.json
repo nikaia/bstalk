@@ -1,7 +1,7 @@
 {
   "name": "bstalk",
   "description": "Deploy your beanstalkapp.com projects from CLI",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./bin/bstalk",
   "author": "Nassif Bourguig nbourguig@gmail.com",
   "contributors": [
