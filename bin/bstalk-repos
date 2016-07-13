@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    _ = require('underscore'),
+    Grid = require('term-grid'),
+    logger = require('../lib/logger'),
+    beanstalk = require('../lib/api');
+
+/*
+ |--------------------------------------------------------------------------
+ | Program
+ |--------------------------------------------------------------------------
+ */
+program
+  .usage('')
+  .parse(process.argv);
+
+beanstalk.getRepositories(function(repos){
+
+  var items = _.map(repos, function(repo){
+      var item = [];
+      item.push(repo.repository.id);
+      item.push(repo.repository.name);
+
+      return item;
+  });
+
+  var grid = new Grid(items);
+  grid.draw();
+
+  console.log('Repositories count : ' + items.length);
+});

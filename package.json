@@ -1,0 +1,43 @@
+{
+  "name": "nikaia/bstalk",
+  "description": "Deploy your beanstalkapp.com projects from CLI",
+  "version": "0.0.1",
+  "main": "./bin/bstalk",
+  "author": "Nassif Bourguig nbourguig@gmail.com",
+  "contributors": [
+    {
+      "name": "Nassif Bourguig",
+      "email": "nbourguig@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://www.github.com/nikaia/bstalk/issues"
+  },
+  "keywords": [
+    "beanstalk",
+    "beanstalkapp.com",
+    "git",
+    "deploy",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/nikaia/bstalk"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "bstlak": "bin/bstalk"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "indent": "0.0.2",
+    "nconf": "^0.8.4",
+    "open": "0.0.5",
+    "superagent": "^2.0.0",
+    "term-grid": "^0.1.8",
+    "underscore": "^1.8.3"
+  }
+}

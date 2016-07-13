@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    _ = require('underscore'),
+    Grid = require('term-grid'),
+    logger = require('../lib/logger'),
+    beanstalk = require('../lib/api');
+
+/*
+ |--------------------------------------------------------------------------
+ | Program
+ |--------------------------------------------------------------------------
+ */
+program
+  .usage('<repo> <env>')
+  .parse(process.argv);
+
+var repoName = program.args[0],
+    envName = program.args[1],
+    comment = program.args[2];
+
+if (!repoName || !envName) {
+    logger.fatal('You need to pass in the <repo> and the <env> arguments.');
+    process.exit(1);
+}
+
+
+function checkReleaseState(repoName, releaseId, delay) {
+  setTimeout(function(){
+    beanstalk.release(repoName, releaseId, function(release){
+        switch (release.state) {
+
+          case 'waiting':
+            logger.log('waiting...');
+            checkReleaseState(repoName, releaseId, 2000);
+            break;
+
+          case 'pending':
+            logger.log('pending...');
+            checkReleaseState(repoName, releaseId, 2000);
+            break;
+
+          case 'skipped':
+            logger.fatal('Deployment skipped.');
+            break;
+
+          case 'failed':
+            logger.fatal('Deployment failed.');
+            break;
+
+          case 'success':
+              logger.log('Deployed successfully.');
+              break;
+
+          default:
+            logger.log('Unknown state  : ' + release.state);
+            break;
+        }
+    });
+
+  }, delay || 0);
+}
+
+// First we ge the repository
+beanstalk.repo(repoName, function(data){
+  var repo = data.repository;
+
+  // Getting all repo environments
+  beanstalk.getEnvironments(repoName, function(envs){
+    var env = envs[envName];
+
+    if(!env){
+       logger.fatal('Cannot find the requested environment. Avaialable ones are : ' + _.pluck(envs, 'name'));
+       process.exit(1);
+    }
+
+    // Fire the deployment
+    beanstalk.deploy(repoName, env.id, env.current_version, comment, function(release){
+        checkReleaseState(repoName, release.id);
+    });
+
+  });
+});
