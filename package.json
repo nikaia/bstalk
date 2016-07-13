@@ -27,7 +27,7 @@
   },
   "preferGlobal": "true",
   "bin": {
-    "bstlak": "bin/bstalk"
+    "bstalk": "bin/bstalk"
   },
   "dependencies": {
     "chalk": "^1.1.3",
