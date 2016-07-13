@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 var program = require('commander'),
+    _ = require('underscore'),
     logger = require('../lib/logger'),
-    config = require('../lib/config');
+    beanstalk = require('../lib/api');
 
 /*
  |--------------------------------------------------------------------------

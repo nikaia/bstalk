@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+    logger = require('../lib/logger'),
+    beanstalk = require('../lib/api'),
+    config = require("../lib/config").get();
+
+/*
+ |--------------------------------------------------------------------------
+ | Program
+ |--------------------------------------------------------------------------
+ */
+program
+  .usage('<repo> [color]')
+  .parse(process.argv);
+
+var repoName = program.args[0],
+    color = program.args[1];
+
+if (!repoName) {
+    logger.fatal('You need to pass in the <repo> argument.');
+}
+
+if (color) {
+  if(!beanstalk.isValidColor(color)){
+    logger.fatal('The given color is not valid.');
+    logger.warn('Available colors : ', beanstalk.availableColors().join(', '));
+    process.exit(1);
+  }
+}
+
+beanstalk.createRepo(repoName, color, function(repo){
+    logger.success('Repository created successfully.');
+    logger.info('Web url: ' + 'https://'+ config.account +'.beanstalkapp.com/' + repoName);
+    logger.info('Git url: ' + repo.repository_url);
+});
