@@ -1,5 +1,5 @@
 {
-  "name": "nikaia/bstalk",
+  "name": "bstalk",
   "description": "Deploy your beanstalkapp.com projects from CLI",
   "version": "0.0.1",
   "main": "./bin/bstalk",
