@@ -61,7 +61,7 @@ function checkReleaseState(repoName, releaseId, delay) {
   }, delay || 0);
 }
 
-// First we ge the repository
+// First we get the repository
 beanstalk.repo(repoName, function(data){
   var repo = data.repository;
 
@@ -74,8 +74,8 @@ beanstalk.repo(repoName, function(data){
        process.exit(1);
     }
 
-    // Fire the deployment
-    beanstalk.deploy(repoName, env.id, env.current_version, comment, function(release){
+    // Fire the deployment to the last environment branch revision
+    beanstalk.deploy(repoName, env.id, null, comment, function(release){
         checkReleaseState(repoName, release.id);
     });
 
