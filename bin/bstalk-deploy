@@ -2,7 +2,6 @@
 
 var program = require('commander'),
     _ = require('underscore'),
-    ora = require('ora'),
     logger = require('../lib/logger'),
     beanstalk = require('../lib/api');
 
@@ -29,29 +28,33 @@ function checkReleaseState(repoName, releaseId, delay) {
         switch (release.state) {
 
           case 'waiting':
-            logger.log('waiting...');
+            logger.spin('waiting...');
             checkReleaseState(repoName, releaseId, 2000);
             break;
 
           case 'pending':
-            logger.log('pending...');
+            logger.spin('pending...');
             checkReleaseState(repoName, releaseId, 2000);
             break;
 
           case 'skipped':
-            logger.fatal('Deployment skipped.');
+            logger.stopSpinner();
+            logger.warn('Deployment skipped.');
             break;
 
           case 'failed':
+            logger.stopSpinner();
             logger.fatal('Deployment failed.');
             break;
 
           case 'success':
-              logger.log('Deployed successfully.');
-              break;
+            logger.stopSpinner();
+            logger.success('Deployed successfully.');
+            break;
 
           default:
-            logger.log('Unknown state  : ' + release.state);
+            logger.stopSpinner();
+            logger.warn('Unknown state  : ' + release.state);
             break;
         }
     });
@@ -73,6 +76,7 @@ beanstalk.repo(repoName, function(data){
     }
 
     // Fire the deployment to the last environment branch revision
+    logger.spin('Deploying last revision');
     beanstalk.deploy(repoName, env.id, null, comment, function(release){
         checkReleaseState(repoName, release.id);
     });
