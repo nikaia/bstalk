@@ -13,4 +13,11 @@ program
   .usage('')
   .parse(process.argv);
 
-config.createConfigFile();
+//config.createConfigFile();
+
+logger.log('log message');
+logger.warn('warning message');
+logger.success('success message');
+logger.info('info message');
+logger.error('error message');
+logger.fatal('fatal message');

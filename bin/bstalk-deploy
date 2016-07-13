@@ -2,7 +2,7 @@
 
 var program = require('commander'),
     _ = require('underscore'),
-    Grid = require('term-grid'),
+    ora = require('ora'),
     logger = require('../lib/logger'),
     beanstalk = require('../lib/api');
 
@@ -21,9 +21,7 @@ var repoName = program.args[0],
 
 if (!repoName || !envName) {
     logger.fatal('You need to pass in the <repo> and the <env> arguments.');
-    process.exit(1);
 }
-
 
 function checkReleaseState(repoName, releaseId, delay) {
   setTimeout(function(){

@@ -36,6 +36,7 @@
     "indent": "0.0.2",
     "nconf": "^0.8.4",
     "open": "0.0.5",
+    "ora": "^0.2.3",
     "superagent": "^2.0.0",
     "term-grid": "^0.1.8",
     "underscore": "^1.8.3"
