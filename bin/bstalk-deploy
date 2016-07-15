@@ -71,7 +71,7 @@ beanstalk.repo(repoName, function(data){
     var env = envs[envName];
 
     if(!env){
-       logger.fatal('Cannot find the requested environment. Avaialable ones are : ' + _.pluck(envs, 'name'));
+       logger.fatal('Cannot find the requested environment. Available ones are : ' + _.pluck(envs, 'name'));
        process.exit(1);
     }
 
