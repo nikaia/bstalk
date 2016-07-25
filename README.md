@@ -25,8 +25,7 @@ Commands:
 
 
 ## Create a repo
-[![asciicast](https://asciinema.org/a/676ung5825brdurnfhgpndzex.png)](https://asciinema.org/a/676ung5825brdurnfhgpndzex)
-
+[![asciicast](https://asciinema.org/a/80899.png)](https://asciinema.org/a/80899)
 
 ## Deploy a repo
-[![asciicast](https://asciinema.org/a/c6rgchqwzn0hzt1s6p4ez3b8s.png)](https://asciinema.org/a/c6rgchqwzn0hzt1s6p4ez3b8s)
+<script type="text/javascript" src="https://asciinema.org/a/80897.js" id="asciicast-80897" async></script>
