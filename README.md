@@ -3,6 +3,13 @@
 Deploy your beanstalkapp.com projects from CLI
 
 
+## Install
+
+npm install -g bstalk
+
+
+
+## Usage
 ```
 bstalk
 
@@ -23,9 +30,8 @@ Commands:
 ```
 
 
-
 ## Create a repo
 [![asciicast](https://asciinema.org/a/80899.png)](https://asciinema.org/a/80899)
 
 ## Deploy a repo
-<script type="text/javascript" src="https://asciinema.org/a/80897.js" id="asciicast-80897" async></script>
+[![asciicast](https://asciinema.org/a/80897.png)](https://asciinema.org/a/80897)
