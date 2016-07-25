@@ -15,46 +15,53 @@ program
   .parse(process.argv);
 
 var repoName = program.args[0],
-    envName = program.args[1],
-    comment = program.args[2];
+    envsArgument = program.args[1],
+    comment = program.args[2],
+    envNames = [];
 
-if (!repoName || !envName) {
+if (!repoName || !envsArgument) {
     logger.fatal('You need to pass in the <repo> and the <env> arguments.');
 }
 
-function checkReleaseState(repoName, releaseId, delay) {
+function checkReleaseState(repoName, releaseId, delay, cb) {
+
   setTimeout(function(){
+
     beanstalk.release(repoName, releaseId, function(release){
         switch (release.state) {
 
           case 'waiting':
             logger.spin('waiting...');
-            checkReleaseState(repoName, releaseId, 2000);
+            checkReleaseState(repoName, releaseId, 2000, cb);
             break;
 
           case 'pending':
             logger.spin('pending...');
-            checkReleaseState(repoName, releaseId, 2000);
+            checkReleaseState(repoName, releaseId, 2000, cb);
             break;
 
           case 'skipped':
             logger.stopSpinner();
             logger.warn('Deployment skipped.');
+            cb.call();
             break;
 
           case 'failed':
             logger.stopSpinner();
             logger.fatal('Deployment failed.');
+            cb.call();
             break;
 
           case 'success':
             logger.stopSpinner();
             logger.success('Deployed successfully.');
+            cb.call();
             break;
 
           default:
             logger.stopSpinner();
             logger.warn('Unknown state  : ' + release.state);
+            cb.call();
             break;
         }
     });
@@ -62,24 +69,46 @@ function checkReleaseState(repoName, releaseId, delay) {
   }, delay || 0);
 }
 
-// First we get the repository
-beanstalk.repo(repoName, function(data){
-  var repo = data.repository;
 
-  // Getting all repo environments
-  beanstalk.getEnvironments(repoName, function(envs){
-    var env = envs[envName];
+function deployToEnv(repoName, envName, cb) {
+    logger.newline();
+    logger.info('Deploying to <'+ envName +'>');
 
-    if(!env){
-       logger.fatal('Cannot find the requested environment. Available ones are : ' + _.pluck(envs, 'name'));
-       process.exit(1);
-    }
+    // First we get the repository
+    beanstalk.repo(repoName, function(data){
+      var repo = data.repository;
 
-    // Fire the deployment to the last environment branch revision
-    logger.spin('Deploying last revision');
-    beanstalk.deploy(repoName, env.id, null, comment, function(release){
-        checkReleaseState(repoName, release.id);
+      // Getting all repo environments
+      beanstalk.getEnvironments(repoName, function(envs){
+        var env = envs[envName];
+
+        if(!env){
+           logger.fatal('Cannot find the requested environment. Available ones are : ' + _.pluck(envs, 'name'));
+           process.exit(1);
+        }
+
+        // Fire the deployment to the last environment branch revision
+        logger.spin('Deploying last revision');
+        beanstalk.deploy(repoName, env.id, null, comment, function(release){
+            checkReleaseState(repoName, release.id, 0, cb);
+        });
+
+      });
     });
+}
 
-  });
-});
+function deployToNextEnv(repoName, envNames) {
+  if(envNames.length < 1){
+      logger.newline();
+      logger.info('Completed.');
+      return;
+  }
+
+  deployToEnv(repoName, envNames.shift(), function(){ deployToNextEnv(repoName, envNames); });
+}
+
+
+// Prepare env names
+var envNames = envsArgument.split(',');
+envNames = _.map(envNames, function(e){ return e.trim(); });
+deployToNextEnv(repoName, envNames);
