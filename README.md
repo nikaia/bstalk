@@ -5,7 +5,9 @@ Deploy your beanstalkapp.com projects from CLI (and other cool stuff)
 
 ## Install
 
+```
 npm install -g bstalk
+```
 
 
 
