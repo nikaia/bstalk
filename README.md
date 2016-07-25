@@ -1,6 +1,6 @@
 # bstalk
 
-Deploy your beanstalkapp.com projects from CLI
+Deploy your beanstalkapp.com projects from CLI (and other cool stuff)
 
 
 ## Install
@@ -31,7 +31,7 @@ Commands:
 
 
 ## Create a repo
-[![asciicast](https://asciinema.org/a/80899.png)](https://asciinema.org/a/80899)
+[![asciicast](https://asciinema.org/a/80897.png)](https://asciinema.org/a/80897)
 
 ## Deploy a repo
-[![asciicast](https://asciinema.org/a/80897.png)](https://asciinema.org/a/80897)
+[![asciicast](https://asciinema.org/a/80899.png)](https://asciinema.org/a/80899)
