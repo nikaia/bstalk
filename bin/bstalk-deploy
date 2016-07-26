@@ -31,12 +31,12 @@ function checkReleaseState(repoName, releaseId, delay, cb) {
         switch (release.state) {
 
           case 'waiting':
-            logger.spin('waiting...');
+            logger.spin('waiting');
             checkReleaseState(repoName, releaseId, 2000, cb);
             break;
 
           case 'pending':
-            logger.spin('pending...');
+            logger.spin('pending');
             checkReleaseState(repoName, releaseId, 2000, cb);
             break;
 
