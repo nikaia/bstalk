@@ -13,22 +13,23 @@ npm install -g bstalk
 
 ## Usage
 ```
-bstalk
+ bstalk -h
 
-Usage: bstalk <command> [options]
+  Usage: bstalk <command> [options]
 
-Options:
+  Options:
 
-  -h, --help     output usage information
-  -V, --version  output the version number
+    -h, --help     output usage information
+    -V, --version  output the version number
 
-Commands:
+  Commands:
 
-  bstalk --version                       Print version
-  bstalk config                          Create config file
-  bstalk openconfig                      Open config file for edition
-  bstalk repos                           Display list of all repositories
-  bstalk deploy <repo> <env> [comment]   Deploy environment <env> on <repo>    
+    bstalk --version                       Print version
+    bstalk config                          Create config file
+    bstalk openconfig                      Open config file for edition
+    bstalk repos                           Display list of all repositories
+    bstalk create <repo> [color]           Create a git <repo> with specified [color]
+    bstalk deploy <repo> <env> [comment]   Deploy environment last revision <env> on <repo>
 ```
 
 
