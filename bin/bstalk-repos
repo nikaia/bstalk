@@ -15,8 +15,12 @@ program
   .usage('')
   .parse(process.argv);
 
+logger.spin('Fetching repos, please wait ...');
+
 beanstalk.getRepositories(function(repos){
 
+  logger.stopSpinner();
+  
   var items = _.map(repos, function(repo){
       var item = [];
       item.push(repo.repository.id);
