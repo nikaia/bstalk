@@ -22,6 +22,7 @@ var exists = require('fs').existsSync,
    console.log('    bstalk openconfig                      Open config file for edition');
    console.log('    bstalk repos                           Display list of all repositories');
    console.log('    bstalk create <repo> [color]           Create a git <repo> with specified [color]');
+   console.log('    bstalk envs <repo>                     Displays configured environments for <repo>');
    console.log('    bstalk deploy <repo> <env> [comment]   Deploy environment last revision <env> on <repo>');
    console.log();
  });

@@ -29,7 +29,8 @@ npm install -g bstalk
     bstalk openconfig                      Open config file for edition
     bstalk repos                           Display list of all repositories
     bstalk create <repo> [color]           Create a git <repo> with specified [color]
-    bstalk deploy <repo> <env> [comment]   Deploy environment last revision <env> on <repo>
+    bstalk envs <repo>                     Displays configured environments for <repo>
+    bstalk deploy <repo> <env> [comment]   Deploy environment last revision on <env> for <repo>
 ```
 
 
