@@ -10,6 +10,11 @@ npm install -g bstalk
 ```
 
 
+## Update
+
+```
+npm update -g bstalk
+```
 
 ## Usage
 ```
