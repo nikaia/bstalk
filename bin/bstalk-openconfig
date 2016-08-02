@@ -11,7 +11,7 @@ var program = require('commander'),
  |--------------------------------------------------------------------------
  */
 program
-  .usage()
+  .usage('')
   .parse(process.argv);
 
 var file = config.file();
