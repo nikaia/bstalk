@@ -3,7 +3,7 @@
 var exists = require('fs').existsSync,
     program = require('commander'),
     resolve = require('path').resolve,
-    spawn = require('child_process').spawn,
+    spawn = require('cross-spawn'),
     config = require('nconf'),
     fs      = require("fs"),
     path    = require("path"),
