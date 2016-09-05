@@ -47,4 +47,5 @@ npm update -g bstalk
 
 ## Credits
 - [Nassif Bourguig](https://github.com/nbourguig)
+- [Dpblandin](https://github.com/Dpblandin)
 - [All Contributors](../../contributors)
